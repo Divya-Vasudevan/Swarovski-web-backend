@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swarovski Lighting Chennai">
+    <title>Swarovski Lighting</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <script type="text/javascript">
+    var app = angular.module('testApp',[]);
+         
+       
+      app.controller('myCtrl', ['$scope', '$http', function($scope, $http){
+//      app.controller('myCtrl', ['$scope', function($scope){
+//          
+//          $scope.list =[ {'family': 'AMACA', 'prodID': 'SHA2500', 'height': '15inch'}];
+           
+           $scope.items;
+          
+       $scope.loadD = function(){           
+           $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+           
+            $http.get('prod_filter.php',
+                      { params : {'room[]': ["BedRoom"]},
+                        headers : {'Accept' : 'application/json'}
+                      }
+                )
+               .then(function(response){
+                    $scope.items = response.data; 
+                    console.log($scope.items);
+            }); 
+           return $scope.items;
+        };
+          $scope.loadD();
+          console.log("out");
+        }
+    ]);
+       
+    </script>
+
+</head>
+<body>  
+    <div ng-app="testApp">
+        <div ng-controller="myCtrl">
+            <li ng-repeat="product in items.products">
+                <p>{{product.prod_id}}</p>
+                <p>{{product.img_url}}</p>
+                <p>{{product.family}}</p>
+            </li>
+        </div>
+    </div>
+    </body>
+</html>

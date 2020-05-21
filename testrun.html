@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swarovski Lighting Chennai">
+    <title>Swarovski Lighting</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+</head>
+<body>  
+    <div ng-app="testApp">
+        <div ng-controller="myCtrl">
+            <div>
+                <p>{{list.family}}</p>
+                <p>{{list.prodID}}</p>
+                <p>{{list.height}}</p>
+                <p>{{list.brand}}</p>
+                <p>{{list.width}}</p>
+                <p>{{list.weight}}</p>
+                <p>{{list.rooms}}</p>
+                <p>{{list.specs_link}}</p>
+                <p>{{list.color_desc}}</p>
+                <p>{{list.trim_desc}}</p>
+            </div>    
+        </div>
+    </div>
+    
+     <script type="text/javascript">
+    var app = angular.module('testApp',[]);
+        
+         
+       
+      app.controller('myCtrl', ['$scope', '$http', function($scope, $http){
+//      app.controller('myCtrl', ['$scope', function($scope){
+//          
+//          $scope.list =[ {'family': 'AMACA', 'prodID': 'SHA2500', 'height': '15inch'}];
+           
+           $scope.list;
+          
+       $scope.loadD = function(){           
+           $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+           
+            $http.get('prod_det.php',
+                      { params : {prodID: 'a1'},
+                        headers : {'Accept' : 'application/json'}
+                      }
+                )
+               .then(function(response){
+                    $scope.list = response.data; 
+                    console.log($scope.list);
+            }); 
+           return $scope.list;
+        };
+          console.log("out");
+            $scope.loadD();
+        }
+    ]);
+       
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </body>
+</html>
